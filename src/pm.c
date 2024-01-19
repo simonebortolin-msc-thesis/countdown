@@ -127,7 +127,7 @@ HIDDEN void set_pstate(int pstate)
 		write_msr(offset, written_pstate);
 #endif
 	}
-	if(cntd->wait_pstate) {
+	if(cntd->enable_wait_pstate) {
 		wait_pstate(pstate);
 	}
 }
@@ -203,7 +203,7 @@ HIDDEN void wait_pstate(int pstate) {
 			fprintf(stdout,"COUNTDOWN_WAIT: Desidered P-state %d, Current P-state %d", pstate, curr_pstate);
 
 		}
-	} while(false);
+	} while(0);
 }
 
 HIDDEN void set_min_pstate()

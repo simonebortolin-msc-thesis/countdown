@@ -634,6 +634,7 @@ void eam_slack_init();
 void eam_slack_finalize();
 
 // pm.c
+void wait_pstate(int pstate);
 void set_pstate(int pstate);
 void set_max_pstate();
 void set_min_pstate();
