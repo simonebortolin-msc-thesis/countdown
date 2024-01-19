@@ -127,7 +127,11 @@ HIDDEN void set_pstate(int pstate)
 		write_msr(offset, written_pstate);
 #endif
 	}
+	if(cntd->wait_pstate) {
+		wait_pstate(pstate);
+	}
 }
+
 
 HIDDEN void set_max_pstate()
 {
@@ -173,6 +177,33 @@ HIDDEN void set_max_pstate()
 		//cntd->sys_pstate[MAX] = get_maximum_turbo_frequency();
 		set_pstate(cntd->sys_pstate[MAX]);
 	}
+}
+
+HIDDEN void wait_pstate(int pstate) {
+	int world_rank, max_pstate;
+	char hostname[STRING_SIZE];
+
+	gethostname(hostname, sizeof(hostname));
+	PMPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+
+	char temp_freq_value[STRING_SIZE];
+	char filename[STRING_SIZE];
+	snprintf(filename                 ,
+				STRING_SIZE              ,
+				SCALING_CUR_FREQ,
+				cntd->rank->cpu_id);
+
+	int curr_pstate;
+	do {
+		if(read_str_from_file(filename, temp_freq_value) < 0) {
+			fprintf(stderr, "Error: <COUNTDOWN-node:%s-rank:%d> Failed to read file: %s\n",
+					hostname, world_rank, SCALING_CUR_FREQ);
+		} else {
+			curr_pstate = (int)((float)atoi(temp_freq_value) / 1.0E5);
+			fprintf(stdout,"COUNTDOWN_WAIT: Desidered P-state %d, Current P-state %d", pstate, curr_pstate);
+
+		}
+	} while(false);
 }
 
 HIDDEN void set_min_pstate()

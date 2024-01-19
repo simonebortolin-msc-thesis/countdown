@@ -67,6 +67,19 @@ static void read_env()
 		}
 	}
 
+	char *cntd_wait_pstate = getenv("CNTD_WAIT_PSTATE");
+	if(cntd_wait_pstate != NULL)
+	{ 
+		if(str_to_bool(cntd_wait_pstate))
+		{
+			cntd->enable_wait_pstate = TRUE;
+		} 
+		else
+		{
+			cntd->enable_wait_pstate = FALSE;
+		}
+	}
+
 	// Enable countdown slack
 	char *cntd_slack_enable_str = getenv("CNTD_SLACK_ENABLE");
 	if(cntd_slack_enable_str != NULL)

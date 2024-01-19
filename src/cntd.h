@@ -220,6 +220,8 @@
 #define SCALING_MIN_FREQ				"/sys/devices/system/cpu/cpu%u/cpufreq/scaling_min_freq"
 #define SCALING_GOVERNOR				"/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
 #define SCALING_SETSPEED				"/sys/devices/system/cpu/cpu%u/cpufreq/scaling_setspeed"
+#define SCALING_CUR_FREQ				"/sys/devices/system/cpu/cpu%u/cpufreq/scaling_cur_freq"
+
 
 #ifdef INTEL	
 
@@ -513,6 +515,7 @@ typedef struct
 	unsigned int enable_cntd:1;
 	unsigned int enable_cntd_slack:1;
 	unsigned int enable_eam_freq:1;
+	unsigned int enable_wait_pstate:1;
 	unsigned int enable_power_monitor:1;
 	unsigned int enable_timeseries_report:1;
 	unsigned int enable_report:1;
