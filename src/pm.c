@@ -181,8 +181,8 @@ HIDDEN void set_max_pstate()
 
 HIDDEN void wait_pstate(int des_pstate) {
 
-	des_pstate /= 1.0E5;
-	int world_rank, max_pstate;
+	des_pstate = (int)((float)des_pstate/1.0E5);
+	int world_rank;
 	char hostname[STRING_SIZE];
 
 	gethostname(hostname, sizeof(hostname));
@@ -195,17 +195,20 @@ HIDDEN void wait_pstate(int des_pstate) {
 				SCALING_CUR_FREQ,
 				cntd->rank->cpu_id);
 
-	int curr_pstate;
+	double start_time = read_time();
+	int curr_pstate, init_pstate = -1;
 	do {
 		if(read_str_from_file(filename, temp_freq_value) < 0) {
 			fprintf(stderr, "Error: <COUNTDOWN-node:%s-rank:%d> Failed to read file: %s\n",
 					hostname, world_rank, SCALING_CUR_FREQ);
 		} else {
 			curr_pstate = (int)((float)atoi(temp_freq_value) / 1.0E5);
-			fprintf(stdout,"<COUNTDOWN-node:%s-rank:%d WAIT>: Desidered P-state %d, Current P-state %d\n", des_pstate, curr_pstate);
-
+			if(init_pstate == -1) init_pstate = curr_pstate;
 		}
 	} while(curr_pstate > des_pstate);
+	double end_time = read_time();
+	fprintf(stdout, "<COUNTDOWN_WAIT-node:%s-rank:%d> wait %f, from P-State %d to P-State %d\n",
+					hostname, world_rank, end_time-start_time, curr_pstate, des_pstate);
 }
 
 HIDDEN void set_min_pstate()
