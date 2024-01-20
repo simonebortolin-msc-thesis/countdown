@@ -208,7 +208,7 @@ HIDDEN void wait_pstate(int des_pstate) {
 	} while(curr_pstate < des_pstate);
 	double end_time = read_time();
 	fprintf(stdout, "<COUNTDOWN_WAIT-node:%s-rank:%d> wait %f, from P-State %d to dest P-State %d curr P-State %d\n",
-					hostname, world_rank, end_time-start_time, curr_pstate, des_pstate, curr_pstate);
+					hostname, world_rank, end_time-start_time, init_pstate, des_pstate, curr_pstate);
 }
 
 HIDDEN void set_min_pstate()
