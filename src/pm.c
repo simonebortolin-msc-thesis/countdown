@@ -179,7 +179,9 @@ HIDDEN void set_max_pstate()
 	}
 }
 
-HIDDEN void wait_pstate(int pstate) {
+HIDDEN void wait_pstate(int des_pstate) {
+
+	des_pstate /= 1.0E5;
 	int world_rank, max_pstate;
 	char hostname[STRING_SIZE];
 
@@ -200,10 +202,10 @@ HIDDEN void wait_pstate(int pstate) {
 					hostname, world_rank, SCALING_CUR_FREQ);
 		} else {
 			curr_pstate = (int)((float)atoi(temp_freq_value) / 1.0E5);
-			fprintf(stdout,"COUNTDOWN_WAIT: Desidered P-state %d, Current P-state %d", pstate, curr_pstate);
+			fprintf(stdout,"<COUNTDOWN-node:%s-rank:%d WAIT>: Desidered P-state %d, Current P-state %d\n", des_pstate, curr_pstate);
 
 		}
-	} while(0);
+	} while(curr_pstate > des_pstate);
 }
 
 HIDDEN void set_min_pstate()
