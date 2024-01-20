@@ -205,10 +205,10 @@ HIDDEN void wait_pstate(int des_pstate) {
 			curr_pstate = (int)((float)atoi(temp_freq_value) / 1.0E5);
 			if(init_pstate == -1) init_pstate = curr_pstate;
 		}
-	} while(curr_pstate < des_pstate);
+	} while(curr_pstate < des_pstate-2);
 	double end_time = read_time();
-	fprintf(stdout, "<COUNTDOWN_WAIT-node:%s-rank:%d> wait %f, from P-State %d to dest P-State %d curr P-State %d\n",
-					hostname, world_rank, end_time-start_time, init_pstate, des_pstate, curr_pstate);
+	//fprintf(stdout, "<COUNTDOWN_WAIT-node:%s-rank:%d> wait %f, from P-State %d to dest P-State %d curr P-State %d\n",
+	//				hostname, world_rank, end_time-start_time, init_pstate, des_pstate, curr_pstate);
 }
 
 HIDDEN void set_min_pstate()
