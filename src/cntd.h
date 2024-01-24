@@ -469,6 +469,8 @@ typedef struct
 
 	uint64_t cntd_mpi_type_cnt[NUM_MPI_TYPE];
 	double cntd_mpi_type_time[NUM_MPI_TYPE];
+
+	int clock;
 } CNTD_RankInfo_t;
 
 typedef struct
@@ -520,6 +522,7 @@ typedef struct
 	unsigned int enable_timeseries_report:1;
 	unsigned int enable_report:1;
 	unsigned int enable_perf:1;
+	unsigned int enable_cpu_monitor:1;
 
 	MPI_Comm comm_local;
 	MPI_Comm comm_local_masters;

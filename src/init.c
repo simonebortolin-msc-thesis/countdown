@@ -78,6 +78,23 @@ static void read_env()
 		{
 			cntd->enable_wait_pstate = FALSE;
 		}
+	} else {
+		cntd->enable_wait_pstate = FALSE;
+	}
+
+	char *enable_cpu_monitor = getenv("CNTD_CPU_MONITOR");
+	if(enable_cpu_monitor != NULL)
+	{ 
+		if(str_to_bool(enable_cpu_monitor))
+		{
+			cntd->enable_cpu_monitor = TRUE;
+		} 
+		else
+		{
+			cntd->enable_cpu_monitor = FALSE;
+		}
+	} else {
+		cntd->enable_cpu_monitor = FALSE;
 	}
 
 	// Enable countdown slack

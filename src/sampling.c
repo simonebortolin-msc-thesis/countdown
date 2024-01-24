@@ -389,6 +389,29 @@ HIDDEN void time_sample(int sig, siginfo_t *siginfo, void *context)
 #endif
 			read_energy(&energy_sys, energy_pkg, energy_dram, energy_gpu_sys, energy_gpu, 0, 1);
 		}
+		char temp_freq_value[STRING_SIZE];
+		char filename[STRING_SIZE];
+		if(cntd->enable_cpu_monitor) {
+			double start_time = read_time();
+			for(i = 0; i < cntd->local_rank_size; i++)
+			{
+				snprintf(filename                 ,
+					STRING_SIZE              ,
+					SCALING_CUR_FREQ,
+					i);
+
+				
+				if(read_str_from_file(filename, temp_freq_value) < 0) {
+					fprintf(stderr, "Error: <COUNTDOWN-node:%s-rank:%d> Failed to read file: %s\n",
+							hostname, world_rank, SCALING_CUR_FREQ);
+				} else {
+					cntd->local_ranks[i]->clock = atoi(temp_freq_value);
+				}
+			}
+			double end_time = read_time();
+			fprintf(stderr, "Error: <COUNTDOWN-node:%s-rank:%d> Failed to read file: %s\n",
+							hostname, world_rank, SCALING_CUR_FREQ);
+		}
 	}
 	else
 	{
