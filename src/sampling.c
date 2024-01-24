@@ -402,15 +402,14 @@ HIDDEN void time_sample(int sig, siginfo_t *siginfo, void *context)
 
 				
 				if(read_str_from_file(filename, temp_freq_value) < 0) {
-					fprintf(stderr, "Error: <COUNTDOWN-node:%s-rank:%d> Failed to read file: %s\n",
-							hostname, world_rank, SCALING_CUR_FREQ);
+					fprintf(stderr, "Error: <COUNTDOWN-sampling> Failed to read file: %s\n",
+							SCALING_CUR_FREQ);
 				} else {
 					cntd->local_ranks[i]->clock = atoi(temp_freq_value);
 				}
 			}
 			double end_time = read_time();
-			fprintf(stderr, "Error: <COUNTDOWN-node:%s-rank:%d> Failed to read file: %s\n",
-							hostname, world_rank, SCALING_CUR_FREQ);
+			fprintf(stdout, "<COUNTDOWN-sampling> Time: %f\n", end_time - start_time);
 		}
 	}
 	else
