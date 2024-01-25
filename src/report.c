@@ -1445,6 +1445,9 @@ HIDDEN void init_timeseries_report()
 
 			fprintf(timeseries_fd, ";rank-%d-cpu-%d-mem_data",
 				cntd->local_ranks[i]->world_rank, cntd->local_ranks[i]->cpu_id);
+			
+			fprintf(timeseries_fd, ";rank-%d-cpu-%d-clock",
+				cntd->local_ranks[i]->world_rank, cntd->local_ranks[i]->cpu_id);
 		}
 
 		// Linux perf
@@ -1838,6 +1841,8 @@ HIDDEN void print_timeseries_report(
 				time_en_mem 	   ,
 				time_run_mem);
 		fprintf(timeseries_fd	   , ";%lu", mem_data);
+		fprintf(timeseries_fd	   , ";%lu", mem_data);
+		fprintf(timeseries_fd	   , ";%lu", cntd->local_ranks[i]->clock);
 	}
 
 	// Linux perf
