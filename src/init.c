@@ -172,7 +172,7 @@ static void read_env()
 	// Sampling time
 	char *sampling_time_str = getenv("CNTD_SAMPLING_TIME");
 	if(sampling_time_str != NULL)
-		cntd->sampling_time = strtod(sampling_time_str, sampling_time_str + 10);
+		cntd->sampling_time = strtod(sampling_time_str);
 	else
 		cntd->sampling_time = DEFAULT_SAMPLING_TIME_REPORT;
 
