@@ -40,6 +40,8 @@ static void eam_callback()
 
 HIDDEN void eam_start_mpi()
 {
+	time_sample(0, NULL, NULL);
+
 	flag_eam = FALSE;
 	if(cntd->eam_timeout > 0)
 		start_timer();
@@ -49,6 +51,8 @@ HIDDEN void eam_start_mpi()
 
 HIDDEN int eam_end_mpi()
 {
+	time_sample(0, NULL, NULL);
+	
 	if(cntd->eam_timeout > 0)
 		reset_timer();
 

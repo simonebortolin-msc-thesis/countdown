@@ -161,6 +161,8 @@ static int is_p2p(MPI_Type_t mpi_type)
 
 HIDDEN void eam_slack_start_mpi(MPI_Type_t mpi_type, MPI_Comm comm, int addr)
 {
+	time_sample(0, NULL, NULL);
+
 	if(is_wait_mpi(mpi_type) || is_p2p(mpi_type))
 	{
 		flag_eam_slack = FALSE;
@@ -200,6 +202,8 @@ HIDDEN void eam_slack_start_mpi(MPI_Type_t mpi_type, MPI_Comm comm, int addr)
 
 HIDDEN int eam_slack_end_mpi(MPI_Type_t mpi_type, MPI_Comm comm, int addr)
 {
+	time_sample(0, NULL, NULL);
+	
 	if(is_wait_mpi(mpi_type) || is_p2p(mpi_type))
 	{
 		if(cntd->eam_timeout > 0)
