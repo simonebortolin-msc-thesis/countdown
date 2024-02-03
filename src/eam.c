@@ -68,6 +68,8 @@ HIDDEN int eam_end_mpi()
 
 HIDDEN void eam_init()
 {
+	time_sample(0, NULL, NULL);
+	
 	// Initialization of timer
 	if(cntd->eam_timeout > 0)
 		init_timer(eam_callback);

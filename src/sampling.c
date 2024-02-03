@@ -406,6 +406,7 @@ HIDDEN void time_sample(int sig, siginfo_t *siginfo, void *context)
 							SCALING_CUR_FREQ);
 				} else {
 					cntd->local_ranks[i]->clock = atoi(temp_freq_value);
+					fprintf(stdout, "<COUNTDOWN-cpu-freq> Time: %d\n", cntd->local_ranks[i]->clock);
 				}
 			}
 			double end_time = read_time();
