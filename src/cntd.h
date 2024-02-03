@@ -685,7 +685,7 @@ void start_timer();
 void reset_timer();
 void init_timer();
 void finalize_timer();
-int make_timer(timer_t *timerID, void (*func)(int, siginfo_t*, void*), int interval, int expire);
+int make_timer(timer_t *timerID, void (*func)(int, siginfo_t*, void*), double interval, double expire);
 int delete_timer(timer_t timerID);
 
 // tool.c

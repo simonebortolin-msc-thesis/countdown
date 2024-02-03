@@ -55,7 +55,7 @@ HIDDEN void finalize_timer()
     reset_timer();
 }
 
-HIDDEN int make_timer(timer_t *timerID, void (*func)(int, siginfo_t*, void*), int interval, int expire)
+HIDDEN int make_timer(timer_t *timerID, void (*func)(int, siginfo_t*, void*), double interval, double expire)
 {
     struct sigevent te;
     struct itimerspec its;
@@ -76,10 +76,10 @@ HIDDEN int make_timer(timer_t *timerID, void (*func)(int, siginfo_t*, void*), in
     timer_create(CLOCK_MONOTONIC, &te, timerID);
 
     // Set time interval
-    its.it_interval.tv_sec = interval;
-    its.it_interval.tv_nsec = 0;
-    its.it_value.tv_sec = expire;
-    its.it_value.tv_nsec = 0;
+    its.it_interval.tv_sec = floor(interval);
+    its.it_interval.tv_nsec = (interval-floor(interval))*1e9;
+    its.it_value.tv_sec = floor(expire);
+    its.it_value.tv_nsec = (expire-floor(expire))*1e9;
     timer_settime(*timerID, 0, &its, NULL);
 
     return 0;
