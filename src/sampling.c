@@ -326,7 +326,7 @@ HIDDEN void read_tsc(uint64_t* tsc) {
 #endif
 
 void print_clock() {
-	double time = read_time();
+	double time = read_time() - cntd->rank->exe_time[START];
 	char temp_freq_value[STRING_SIZE];
 	char filename[STRING_SIZE];
 	for(int i = 0; i < cntd->local_rank_size; i++)
@@ -334,7 +334,7 @@ void print_clock() {
 		snprintf(filename                 ,
 			STRING_SIZE              ,
 			SCALING_CUR_FREQ,
-			i);
+			cntd->local_ranks[i]->cpu_id);
 
 		
 		if(read_str_from_file(filename, temp_freq_value) < 0) {
