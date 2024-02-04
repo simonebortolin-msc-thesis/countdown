@@ -338,10 +338,10 @@ void print_clock() {
 
 		
 		if(read_str_from_file(filename, temp_freq_value) < 0) {
-			fprintf(stderr, "Error: <COUNTDOWN-sampling> Failed to read file: %s\n",
-					SCALING_CUR_FREQ);
+			fprintf(stderr, "Error: <COUNTDOWN-node:%s-rank:%d> Failed to read file: %s\n",
+					cntd->node.hostname, cntd->rank->world_rank, filename);
 		} else {
-			fprintf(stdout, "<COUNTDOWN-cpu-freq> Clock %s at %f\n", temp_freq_value, time);
+			fprintf(stdout, "<COUNTDOWN-node:%s-rank:%d-thread:%d-cpu-clock> Clock %s at %f\n", cntd->node.hostname, cntd->rank->world_rank, i, temp_freq_value, time);
 		}
 	}
 }
