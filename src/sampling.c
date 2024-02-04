@@ -329,7 +329,7 @@ void print_clock() {
 	double time = read_time();
 	char temp_freq_value[STRING_SIZE];
 	char filename[STRING_SIZE];
-	for(i = 0; i < cntd->local_rank_size; i++)
+	for(int i = 0; i < cntd->local_rank_size; i++)
 	{
 		snprintf(filename                 ,
 			STRING_SIZE              ,
@@ -349,7 +349,7 @@ void print_clock() {
 HIDDEN void time_sample(int sig, siginfo_t *siginfo, void *context)
 {
 	print_clock();
-	
+
 	int i, j;
 	static unsigned int init = FALSE;
 	static int flip = 0;
