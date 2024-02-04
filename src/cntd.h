@@ -612,6 +612,8 @@ void init_arch_conf();
 void init_cpufreq();
 void finalize_cpufreq();
 
+void print_clock();
+
 // init.c
 void start_cntd();
 void stop_cntd();

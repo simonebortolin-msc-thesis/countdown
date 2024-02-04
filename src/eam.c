@@ -34,6 +34,8 @@ static int flag_eam = FALSE;
 
 static void eam_callback()
 {
+	print_clock();
+
 	flag_eam = TRUE;
 	set_min_pstate();
 }
@@ -49,6 +51,8 @@ HIDDEN void eam_start_mpi()
 
 HIDDEN int eam_end_mpi()
 {
+	print_clock();
+	
 	if(cntd->eam_timeout > 0)
 		reset_timer();
 

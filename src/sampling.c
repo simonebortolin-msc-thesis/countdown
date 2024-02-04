@@ -325,8 +325,31 @@ HIDDEN void read_tsc(uint64_t* tsc) {
 }
 #endif
 
+void print_clock() {
+	double time = read_time();
+	char temp_freq_value[STRING_SIZE];
+	char filename[STRING_SIZE];
+	for(i = 0; i < cntd->local_rank_size; i++)
+	{
+		snprintf(filename                 ,
+			STRING_SIZE              ,
+			SCALING_CUR_FREQ,
+			i);
+
+		
+		if(read_str_from_file(filename, temp_freq_value) < 0) {
+			fprintf(stderr, "Error: <COUNTDOWN-sampling> Failed to read file: %s\n",
+					SCALING_CUR_FREQ);
+		} else {
+			fprintf(stdout, "<COUNTDOWN-cpu-freq> Clock %s at %f\n", temp_freq_value, time);
+		}
+	}
+}
+
 HIDDEN void time_sample(int sig, siginfo_t *siginfo, void *context)
 {
+	print_clock();
+	
 	int i, j;
 	static unsigned int init = FALSE;
 	static int flip = 0;

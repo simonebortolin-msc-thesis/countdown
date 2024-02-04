@@ -34,6 +34,8 @@ static int flag_eam_slack = FALSE;
 
 static void eam_slack_callback()
 {
+	print_clock();
+
 	flag_eam_slack = TRUE;
 	set_min_pstate();
 }
@@ -200,6 +202,8 @@ HIDDEN void eam_slack_start_mpi(MPI_Type_t mpi_type, MPI_Comm comm, int addr)
 
 HIDDEN int eam_slack_end_mpi(MPI_Type_t mpi_type, MPI_Comm comm, int addr)
 {
+	print_clock();
+	
 	if(is_wait_mpi(mpi_type) || is_p2p(mpi_type))
 	{
 		if(cntd->eam_timeout > 0)
