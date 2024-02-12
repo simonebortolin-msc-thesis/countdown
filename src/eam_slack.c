@@ -34,7 +34,7 @@ static int flag_eam_slack = FALSE;
 
 static void eam_slack_callback()
 {
-	print_clock();
+	print_clock("eam_slack_callback");
 
 	flag_eam_slack = TRUE;
 	set_min_pstate();
@@ -163,6 +163,8 @@ static int is_p2p(MPI_Type_t mpi_type)
 
 HIDDEN void eam_slack_start_mpi(MPI_Type_t mpi_type, MPI_Comm comm, int addr)
 {
+	print_clock("eam_slack_start_mpi");
+
 	if(is_wait_mpi(mpi_type) || is_p2p(mpi_type))
 	{
 		flag_eam_slack = FALSE;
@@ -202,7 +204,7 @@ HIDDEN void eam_slack_start_mpi(MPI_Type_t mpi_type, MPI_Comm comm, int addr)
 
 HIDDEN int eam_slack_end_mpi(MPI_Type_t mpi_type, MPI_Comm comm, int addr)
 {
-	print_clock();
+	print_clock("eam_slack_end_mpi");
 	
 	if(is_wait_mpi(mpi_type) || is_p2p(mpi_type))
 	{

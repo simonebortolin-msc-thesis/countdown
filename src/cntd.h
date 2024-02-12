@@ -613,7 +613,7 @@ void init_arch_conf();
 void init_cpufreq();
 void finalize_cpufreq();
 
-void print_clock();
+void print_clock(const char* fun_name);
 
 // init.c
 void start_cntd();

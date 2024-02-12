@@ -325,7 +325,7 @@ HIDDEN void read_tsc(uint64_t* tsc) {
 }
 #endif
 
-void print_clock() {
+void print_clock(const char* fun_nam) {
 	double time = read_time() - cntd->rank->exe_time[START];
 	char temp_freq_value[STRING_SIZE];
 	char filename[STRING_SIZE];
@@ -338,17 +338,17 @@ void print_clock() {
 
 		
 		if(read_str_from_file(filename, temp_freq_value) < 0) {
-			fprintf(stderr, "Error: <COUNTDOWN-node:%s-rank:%d> Failed to read file: %s\n",
-					cntd->node.hostname, cntd->rank->world_rank, filename);
+			//fprintf(stderr, "Error: <COUNTDOWN-node:%s-rank:%d> Failed to read file: %s\n",
+			//		cntd->node.hostname, cntd->rank->world_rank, filename);
 		} else {
-			fprintf(stdout, "<COUNTDOWN-node:%s-rank:%d-thread:%d-cpu-clock> Clock %s at %f\n", cntd->node.hostname, cntd->rank->world_rank, i, temp_freq_value, time);
+			fprintf(stdout, "<COUNTDOWN-node:%s-rank:%d-thread:%d-cpu-%d-clock-%s> Clock %s at %f\n", cntd->node.hostname, cntd->rank->world_rank, i, cntd->local_ranks[i]->cpu_id, fun_nam, temp_freq_value, time);
 		}
 	}
 }
 
 HIDDEN void time_sample(int sig, siginfo_t *siginfo, void *context)
 {
-	print_clock();
+	print_clock("time_sample");
 
 	int i, j;
 	static unsigned int init = FALSE;
